@@ -1,0 +1,7 @@
+name             'mpd'
+maintainer       'YOUR_NAME'
+maintainer_email 'YOUR_EMAIL'
+license          'All rights reserved'
+description      'Installs/Configures mpd'
+long_description 'Installs/Configures mpd'
+version          '0.1.0'
