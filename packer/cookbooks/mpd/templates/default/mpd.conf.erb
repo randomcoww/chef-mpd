@@ -1,0 +1,19 @@
+<% @mpd_conf_variables.each_pair do |k, v| %>
+<%= k %> "<%= v %>"
+<% end %>
+<% @inputs.each do |i| %>
+
+input {
+  <% i.each_pair do |k, v| %>
+  <%= k %> "<%= v %>"
+  <% end %>
+}
+<% end %>
+<% @audio_outputs.each do |o| %>
+
+audio_output {
+  <% o.each_pair do |k, v| %>
+  <%= k %> "<%= v %>"
+  <% end %>
+}
+<% end %>
