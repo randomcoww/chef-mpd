@@ -4,7 +4,7 @@
       "type": "docker",
       "image": "phusion/baseimage:latest",
       "commit": "true",
-      "run_command": ["-d", "-i", "-t", "{{.Image}}", "/sbin/my_init", "--", "bash", "-l"]
+      "run_command": ["-d", "-t", "{{.Image}}", "/sbin/my_init"]
     }
   ],
 
@@ -28,7 +28,7 @@
     {
       "type": "docker-tag",
       "repository": "randomcoww/mpd",
-      "tag": "0.4.1"
+      "tag": "0.4.2"
     }
   ]
 }
