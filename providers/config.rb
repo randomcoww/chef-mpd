@@ -38,13 +38,21 @@ def mpd_conf
 
   mpd_service
 
-  ## not creating music directory -- should point to some existing path
+  [new_resource.music_directory].each do |d|
+    directory d do
+      owner new_resource.user
+      recursive true
+      action :nothing
+    end.run_action(:create_if_missing)
+  end
 
-  directory new_resource.playlist_directory do
-    owner new_resource.user
-    recursive true
-    action :nothing
-  end.run_action(:create)
+  [new_resource.playlist_directory].each do |d|
+    directory d do
+      owner new_resource.user
+      recursive true
+      action :nothing
+    end.run_action(:create)
+  end
 
   [new_resource.db_file, new_resource.state_file, new_resource.sticker_file].each do |f|
     directory ::File.dirname(f) do
@@ -93,5 +101,11 @@ def action_install
     mpd_package.run_action(:install)
     mpd_conf.run_action(:create)
     mpd_service.run_action(:enable)
+  end
+end
+
+def action_startup
+  converge_by("Startup configuration for MPD") do
+    mpd_conf.run_action(:create)
   end
 end

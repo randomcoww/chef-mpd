@@ -1,4 +1,7 @@
 {
+  "variables": {
+    "timezone": "Etc/UTC"
+  },
   "builders": [
     {
       "type": "docker",
@@ -13,13 +16,14 @@
       "type": "shell",
       "inline": [
         "apt-get -y update",
-        "apt-get install -y curl vim"
+        "apt-get install -y curl vim",
+        "echo \"{{user `timezone`}}\" > /etc/timezone; dpkg-reconfigure -f noninteractive tzdata"
       ]
     },
     {
       "type": "chef-solo",
       "cookbook_paths": ["cookbooks"],
-      "run_list": ["mpd::docker"],
+      "run_list": ["mpd::build"],
       "staging_directory": "/etc/chef"
     }
   ],
@@ -28,7 +32,8 @@
     {
       "type": "docker-tag",
       "repository": "randomcoww/mpd",
-      "tag": "0.4.2"
+      "tag": "latest",
+      "force": true
     }
   ]
 }

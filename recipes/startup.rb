@@ -19,4 +19,5 @@ mpd_config "mpd" do
       'mixer_type' => "none",
     }
   ])
+  action :startup
 end
