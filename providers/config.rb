@@ -17,27 +17,8 @@ def mpd_package
   return @mpd_package
 end
 
-def mpd_service
-  return @mpd_service unless @mpd_service.nil?
-
-  @mpd_service = runit_service new_resource.service_name do
-    run_template_name 'mpd'
-    log_template_name 'mpd' 
-    options(
-      conf: new_resource.mpd_conf
-    )
-    #restart_on_update false
-    action :nothing
-  end
-
-  return @mpd_service
-end
-
-def mpd_conf
-  return @mpd_conf unless @mpd_conf.nil?
-
-  mpd_service
-
+def create_directories
+  ## don't try to change permissions of these
   [new_resource.music_directory].each do |d|
     directory d do
       owner new_resource.user
@@ -61,6 +42,29 @@ def mpd_conf
       action :nothing
     end.run_action(:create)
   end
+end
+
+def mpd_service
+  return @mpd_service unless @mpd_service.nil?
+
+  @mpd_service = runit_service new_resource.service_name do
+    run_template_name 'mpd'
+    log_template_name 'mpd' 
+    options(
+      conf: new_resource.mpd_conf
+    )
+    #restart_on_update false
+    action :nothing
+  end
+
+  return @mpd_service
+end
+
+def mpd_conf
+  return @mpd_conf unless @mpd_conf.nil?
+
+  mpd_service
+  create_directories
 
   @mpd_conf = template "#{new_resource.name}_mpd_conf" do
     path new_resource.mpd_conf
@@ -106,6 +110,6 @@ end
 
 def action_startup
   converge_by("Startup configuration for MPD") do
-    mpd_conf.run_action(:create)
+    create_directories
   end
 end

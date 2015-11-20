@@ -5,12 +5,12 @@ mpd_config "mpd" do
     {
       'type' => "httpd",
       'name' => "HTTP Stream",
-      'encoder' => "vorbis",
+      'encoder' => "wave",
       'port' => "8000",
       'bind_to_address' => "0.0.0.0",
-      'quality' => "10.0",
+      #'quality' => "10.0",
       #'bitrate' => "128",
-      'format' => "44100:16:2",
+      #'format' => "44100:16:2",
       'max_clients' => "0",
     },
     {
