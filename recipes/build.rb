@@ -5,7 +5,8 @@ mpd_config "mpd" do
     {
       'type' => "httpd",
       'name' => "HTTP Stream",
-      'encoder' => "wave",
+      'encoder' => "flac",
+      'compression' => "3",
       'port' => "8000",
       'bind_to_address' => "0.0.0.0",
       #'quality' => "10.0",
