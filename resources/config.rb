@@ -1,28 +1,22 @@
-actions :install, :startup
+actions :install
 default_action :install
 
-attribute :name, :kind_of => [String], :name_attribute => true
-attribute :mpd_package, :kind_of => [String], :default => 'mpd'
-attribute :service_name, :kind_of => [String], :default => 'mpd'
-attribute :mpd_conf, :kind_of => [String], :default => '/etc/mpd.conf'
-attribute :mpd_conf_template, :kind_of => [String], :default => 'mpd.conf.erb'
-attribute :mpd_conf_cookbook, :kind_of => [String], :default => 'mpd'
+attribute :service, :kind_of => [String], :name_attribute => true
 
+attribute :mpd_package, :kind_of => [String], :default => 'mpd'
 attribute :user, :kind_of => [String], :default => 'mpd'
-attribute :bind_to_address, :kind_of => [String], :default => 'localhost'
+
+attribute :mpd_conf_cookbook, :kind_of => [String], :default => 'mpd'
+attribute :mpd_conf_template, :kind_of => [String], :default => 'mpd.conf.erb'
+
 attribute :port, :kind_of => [String], :default => '6600'
 
+## main conf
+attribute :conf_file, :kind_of => [String], :default => '/etc/mpd.conf'
+## mount external music path
 attribute :music_directory, :kind_of => [String], :default => '/var/lib/mpd/music'
-attribute :playlist_directory, :kind_of => [String], :default => '/var/lib/mpd/playlists'
-
-attribute :db_file, :kind_of => [String], :default => '/var/lib/mpd/tag_cache'
-attribute :state_file, :kind_of => [String], :default => '/var/lib/mpd/state'
-attribute :sticker_file, :kind_of => [String], :default => '/var/lib/mpd/sticker.sql'
-
-attribute :mpd_conf_variables, :kind_of => [Hash], :default => {
-  'filesystem_charset' => 'UTF-8',
-  'id3v1_encoding' => 'UTF-8',
-}
+## service state - mount from volume container
+attribute :cache_directory, :kind_of => [String], :default => '/var/lib/mpd/cache'
 
 attribute :inputs, :kind_of => [Array], :default => [
   {

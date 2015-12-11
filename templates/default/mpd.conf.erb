@@ -1,6 +1,13 @@
-<% @mpd_conf_variables.each_pair do |k, v| %>
-<%= k %> "<%= v %>"
-<% end %>
+user "<%= @user %>"
+bind_to_address "<%= @bind_to_address %>"
+port "<%= @port %>"
+music_directory "<%= @music_directory %>"
+playlist_directory "<%= @playlist_directory %>"
+db_file "<%= ::File.join(@cache_directory, 'db_file') %>"
+state_file "<%= ::File.join(@cache_directory, 'state_file') %>"
+sticker_file "<%= ::File.join(@cache_directory, 'sticker.sql') %>"
+filesystem_charset "UTF-8"
+id3v1_encoding "UTF-8"
 <% @inputs.each do |i| %>
 
 input {
