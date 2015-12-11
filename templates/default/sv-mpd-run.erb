@@ -2,4 +2,4 @@
 mkdir -p <%= @options[:create_directories].join(' ') %>
 chown <%= @options[:user] %> <%= @options[:change_owners].join(' ') %>
 
-exec mpd --no-daemon --stdout --stderr <%= @options[:mpd_conf] %>
+exec mpd --no-daemon --stdout --stderr <%= @options[:mpd_conf_file] %>
