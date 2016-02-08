@@ -9,10 +9,19 @@ mpd_config "mpd" do
   audio_outputs ([
     {
       'type' => "httpd",
-      'name' => "HTTP Stream",
+      'name' => "HTTP FLAC-0",
+      'encoder' => "flac",
+      'compression' => "0",
+      'port' => "8000",
+      'bind_to_address' => "0.0.0.0",
+      'max_clients' => "0",
+    },
+    {
+      'type' => "httpd",
+      'name' => "HTTP FLAC-3",
       'encoder' => "flac",
       'compression' => "3",
-      'port' => "8000",
+      'port' => "8001",
       'bind_to_address' => "0.0.0.0",
       'max_clients' => "0",
     },
