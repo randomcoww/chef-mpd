@@ -3,7 +3,10 @@ default_action :install
 
 attribute :service, :kind_of => [String], :name_attribute => true
 
-attribute :mpd_package, :kind_of => [String], :default => 'mpd'
+attribute :mpd_packages, :kind_of => [Array], :default => [
+  'mpd'
+]
+
 attribute :user, :kind_of => [String], :default => 'mpd'
 
 attribute :mpd_conf_cookbook, :kind_of => [String], :default => 'mpd'

@@ -6,15 +6,13 @@ end
 
 
 
-def mpd_package
-  return @mpd_package unless @mpd_package.nil?
-
-  @mpd_package = package new_resource.mpd_package do
-    action :nothing
-    notifies :restart, "service[#{new_resource.service}]"
+def install_packages
+  new_resource.mpd_packages.each do |e|
+    package e do
+      action :upgrade
+      notifies :restart, mpd_service
+    end
   end
-
-  return @mpd_package
 end
 
 def mpd_service
@@ -64,7 +62,7 @@ def mpd_conf_file
       'audio_outputs' => new_resource.audio_outputs,
     })
     action :nothing
-    notifies :restart, "service[#{new_resource.service}]"
+    notifies :restart, mpd_service
   end
 
   return @mpd_conf_file
@@ -75,8 +73,7 @@ end
 
 def action_install
   converge_by("Install MPD") do
-    mpd_service
-    mpd_package.run_action(:install)
+    install_packages
     mpd_conf_file.run_action(:create)
     mpd_service.run_action(:enable)
   end
