@@ -9,9 +9,9 @@ end
 def install_packages
   new_resource.mpd_packages.each do |e|
     package e do
-      action :upgrade
+      action :nothing
       notifies :restart, mpd_service
-    end
+    end.run_action(:upgrade)
   end
 end
 
